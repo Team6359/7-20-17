@@ -1,9 +1,11 @@
 package org.usfirst.frc.team6359.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 
 import org.usfirst.frc.team6359.robot.commands.MoveWithJoystick;
+import org.usfirst.frc.team6359.robot.commands.MoveWithController;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -12,12 +14,14 @@ import org.usfirst.frc.team6359.robot.commands.MoveWithJoystick;
 public class OI {
 	
 	public static Joystick driveStick;
+	public static XboxController controller;
+	//public static Joystick secondStick;
 	
 	public OI(){
 		
 		driveStick = new Joystick(0);
-		
-		
+		controller = new XboxController(1);
+		//secondStick = new Joystick(0);
 		
 		
 		

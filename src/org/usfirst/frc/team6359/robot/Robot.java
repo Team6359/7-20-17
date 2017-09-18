@@ -8,8 +8,11 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team6359.robot.commands.DriveForward;
 import org.usfirst.frc.team6359.robot.commands.MoveWithJoystick;
+import org.usfirst.frc.team6359.robot.commands.UseImplement;
 import org.usfirst.frc.team6359.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team6359.robot.subsystems.Implement;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -20,6 +23,8 @@ import org.usfirst.frc.team6359.robot.subsystems.DriveTrain;
  */
 public class Robot extends IterativeRobot {
 
+	public static DSOutput dsOutput;
+	public static Implement implement;
 	public static DriveTrain driveTrain;
 	public static OI oi;
 	
@@ -34,11 +39,15 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		
 	   driveTrain = new DriveTrain();
+	   implement = new Implement();
+	   dsOutput = new DSOutput();
 	  
 		
 		
 		oi = new OI();
-		chooser.addDefault("Default Auto", new MoveWithJoystick());
+		chooser.addDefault("Default Auto", new DriveForward(11));
+		
+		//chooser.addDefault("Default Auto", new UseImplement());u
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 	}
