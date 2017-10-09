@@ -21,7 +21,7 @@ public class OI {
 		
 		driveStick = new Joystick(0);
 		controller = new XboxController(1);
-		//secondStick = new Joystick(0);
+		
 		
 		
 		

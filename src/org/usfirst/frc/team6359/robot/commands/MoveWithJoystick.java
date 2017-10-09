@@ -12,16 +12,16 @@ import org.usfirst.frc.team6359.robot.Robot;
  */
 public class MoveWithJoystick extends Command {
 	public MoveWithJoystick() {
-		// Use requires() here to declare subsystem dependencies
+		
 		requires(Robot.driveTrain);
 	}
 
-	// Called just before this Command runs the first time
+	
 	@Override
 	protected void initialize() {
 	}
 
-	// Called repeatedly when this Command is scheduled to run
+	
 	@Override
 	protected void execute() {
 		
@@ -44,31 +44,35 @@ public class MoveWithJoystick extends Command {
 		rY = OI.driveStick.getRawAxis(5);
 		
 		//bumper inputs for gear changes
-		up = OI.driveStick.getRawButton(6);
-		down = OI.driveStick.getRawButton(5);
+		up = OI.driveStick.getRawButton(10);
+		down = OI.driveStick.getRawButton(9);
 		
 		//sends joystick and bumper inputs to driveTrain subsystem
-		Robot.driveTrain.DriveArcade(lX, lY);
+		Robot.driveTrain.DriveArcade(rX, lY);
 		Robot.driveTrain.gear(up, down);
 		
+		//runs gyro subsystem
+		Robot.driveTrain.gyro(false);
+		//prints gyro output
+		System.out.println(Robot.driveTrain.gyro(false));
+				
 		//sets controller rumble when gears are changed
 		Robot.dsOutput.rumble(up, down, 1);
 		
 	 }
 
-	// Make this return true when this Command no longer needs to run execute()
+	
 	@Override
 	protected boolean isFinished() {
 		return false;
 	}
 
-	// Called once after isFinished returns true
+
 	@Override
 	protected void end() {
 	}
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
+	
 	@Override
 	protected void interrupted() {
 	}

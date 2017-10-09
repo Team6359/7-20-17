@@ -36,10 +36,10 @@ public class Implement extends Subsystem {
 		
 	}
 	
-	public static void Climber(boolean Button3,boolean Button4){
+	public static void Climber(double leftTrigger,boolean Button4){
 		
-		if(Button3){
-			climber.set(1);	
+		if(leftTrigger > 0){
+			climber.set(leftTrigger);
 		}
 		else if(Button4){
 			climber.set(-1);

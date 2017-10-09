@@ -20,12 +20,12 @@ public class UseImplement extends Command {
 	@Override
 	protected void execute() {
 		
-		Implement.Intake(OI.driveStick.getRawButton(1));
-		
-		Implement.Climber(OI.driveStick.getRawButton(3), OI.driveStick.getRawButton(4));
-		
-		Implement.Shooter(OI.driveStick.getThrottle());
-		
+		Implement.Intake(OI.driveStick.getRawButton(6));
+		//right bumper
+		Implement.Climber(OI.driveStick.getRawAxis(2), OI.driveStick.getRawButton(4));
+		//up: left trigger, down: y button
+		Implement.Shooter(OI.driveStick.getRawAxis(3));
+		//right trigger
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

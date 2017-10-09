@@ -8,29 +8,43 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveForward extends Command{
 	private double _distance;
-	private double _count;
+	
+	private double cpi;
 	public DriveForward(double Distance){
 		requires(Robot.driveTrain);
-		_distance = Distance;
-		_count = 0;
-	}
-
+		
+		cpi = 18380 / 83.5;
+		_distance = Distance * cpi * -1;
+		
+		}
+	 
+		
 	@Override
 	protected void initialize() {
+		Robot.driveTrain.rightEncoder(true);
+		Robot.driveTrain.leftEncoder(true);
+		Robot.driveTrain.gear(true , false);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		if(_count < _distance){
-			
-			
-			Robot.driveTrain.Drive(.1, .1);
-			_count ++;
+		
+		double lEncoder = Robot.driveTrain.leftEncoder(false);
+		double rEncoder = Robot.driveTrain.rightEncoder(false);
+		double turn = lEncoder - rEncoder;
+		turn = turn * 0.005;
+		
+		double _count = Robot.driveTrain.rightEncoder(false);
+	
+	if(_count > _distance){
+			Robot.driveTrain.Drive(0.25, .25 + turn);
 		}
 		else{
 			Robot.driveTrain.Drive(0, 0);
+			
 		}
+		
 		
 	}
 

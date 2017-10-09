@@ -8,6 +8,8 @@ import org.usfirst.frc.team6359.robot.Robot;
 import org.usfirst.frc.team6359.robot.commands.MoveWithController;
 import org.usfirst.frc.team6359.robot.commands.MoveWithJoystick;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
@@ -22,15 +24,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class DriveTrain extends Subsystem {
-	//gear method
+	//gear 
 	int gear;
 	double gearVal;
 	String gearNumber;
-	// DriveArcade method
+	// DriveArcade 
 	double x, y, leftSpeed, rightSpeed, speed;
 	double speedLimit = 1;
-	//Drive Method
+	//Drive 
 	public static SpeedController l1, l2, r1, r2;
+	
+	Encoder encRight = new Encoder(0,1,true);
+	Encoder encLeft = new Encoder(2,3,true);
+	
+	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+	
+	
+	
 	
 	public DriveTrain(){
 	
@@ -40,14 +50,52 @@ public class DriveTrain extends Subsystem {
 		r1 = new Victor(2);
 		r2 = new Victor(1);
 		
+		
+			
 		//inverts speed controllers
 		l1.setInverted(false);
 		l2.setInverted(false);
 		r1.setInverted(true);
 		r2.setInverted(true);
+		}
+	
+	
+	public double rightEncoder(boolean reset){
 		
 		
+		if(reset){
+			encRight.reset();
+			}
+		else{}
+		
+		return encRight.getRaw();
+		}
+	
+	
+	
+	public double leftEncoder(boolean reset){
+		
+		if(reset){
+			encLeft.reset();
+			}
+		else{}
+		
+		return encLeft.getRaw();
+		}
+	
+	
+	public double gyro(boolean reset){
+		
+		
+		if(reset){
+			gyro.reset();
+		}
+		else{}
+		
+		return gyro.getAngle();
 	}
+	
+	
 	
 	public void gear(boolean up, boolean down){
 		
@@ -96,7 +144,7 @@ public class DriveTrain extends Subsystem {
 		
 		//sends gear information to the dsOutput subsystem
 		Robot.dsOutput.gear(gear, gearVal, gearNumber);
-		
+	
 	}
 	
 	public void DriveArcade(double xAxis, double yAxis){
@@ -136,6 +184,9 @@ public class DriveTrain extends Subsystem {
 		
 		}
 	
+	
+	
+	
 	public void Drive(double leftSpeed, double rightSpeed){
 		
 		//sets speed controllers
@@ -143,6 +194,7 @@ public class DriveTrain extends Subsystem {
 		l2.set(leftSpeed * gearVal);
 		r1.set(rightSpeed * gearVal);
 		r2.set(rightSpeed * gearVal);
+		
 		
 		}
 	

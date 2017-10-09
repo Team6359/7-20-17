@@ -1,7 +1,9 @@
 
 package org.usfirst.frc.team6359.robot;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -9,7 +11,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team6359.robot.commands.DriveForward;
+import org.usfirst.frc.team6359.robot.commands.DriveStrait;
 import org.usfirst.frc.team6359.robot.commands.MoveWithJoystick;
+import org.usfirst.frc.team6359.robot.commands.TestRun;
+import org.usfirst.frc.team6359.robot.commands.TurnDegrees;
 import org.usfirst.frc.team6359.robot.commands.UseImplement;
 import org.usfirst.frc.team6359.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team6359.robot.subsystems.Implement;
@@ -26,7 +31,10 @@ public class Robot extends IterativeRobot {
 	public static DSOutput dsOutput;
 	public static Implement implement;
 	public static DriveTrain driveTrain;
+	public static Victor victor;
 	public static OI oi;
+	
+	
 	
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -41,11 +49,14 @@ public class Robot extends IterativeRobot {
 	   driveTrain = new DriveTrain();
 	   implement = new Implement();
 	   dsOutput = new DSOutput();
-	  
+	   oi = new OI();
 		
+	   driveTrain.gyro(true);
+	   driveTrain.leftEncoder(true);
+	   driveTrain.rightEncoder(true);
 		
-		oi = new OI();
-		chooser.addDefault("Default Auto", new DriveForward(11));
+		chooser.addDefault("TestRun", new TestRun());
+		
 		
 		//chooser.addDefault("Default Auto", new UseImplement());u
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -118,6 +129,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		
+		
+	
+		
+		
 	}
 
 	/**
